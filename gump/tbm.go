@@ -45,6 +45,7 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 	}
 	if plugin.Shades.Empty() == false {
 		x := plugin.Shades.First()
+		p.Log("x=%v", x)
 		if strings.Index(x, "/") > -1 {
 			return p.DlGhRawFile(".version.sh", x)
 		}
