@@ -28,7 +28,7 @@ func (p *Plugin) SetOldWd(oldpwd string) {
 // Log message if verbose = true
 func (p *Plugin) Log(format string, c ...interface{}) {
 	if p.verbose {
-		fmt.Printf(format, c...)
+		fmt.Printf(format+"\n", c...)
 	}
 }
 

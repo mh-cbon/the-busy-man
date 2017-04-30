@@ -26,7 +26,7 @@ tbm -w test git license:mit
 (ls -alh test | grep LICENSE) || exit 1
 
 rm -fr test && mkdir test
-tbm -w test git license:mit changelog
+tbm -w test git license:mit git:init+commit changelog
 (ls -alh test | grep .git) || exit 1
 (ls -alh test | grep LICENSE) || exit 1
 (ls -alh test | grep changes.log) || exit 1
