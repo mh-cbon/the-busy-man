@@ -45,8 +45,8 @@ func (p *Plugin) Exec(c string, x ...string) error {
 	cmd := exec.Command(c, x...)
 	if p.verbose {
 		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
 	}
+	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }
 
@@ -62,8 +62,8 @@ func (p *Plugin) GlideInstall(c string) error {
 	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", c)
 	if p.verbose {
 		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
 	}
+	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }
 
