@@ -12,6 +12,7 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
   - [go](#go)
 - [Usage](#usage)
   - [$ the-busy-man -help](#-the-busy-man--help)
+  - [$ the-busy-man -l](#-the-busy-man--l)
 - [Cli examples](#cli-examples)
 - [Your own plugin](#your-own-plugin)
 - [Recipes](#recipes)
@@ -46,6 +47,16 @@ Options
 	-l:               List all plugins.
 	-h|help [plugin]: Show help [of a plugin].
 	-v|-version:      The directory to initialize.
+```
+
+#### $ the-busy-man -l
+```sh
+- changelog: Initialize a changelog file
+- emd: Initialize a README emd file
+- git: Initialize a git repository
+- golang: Initialize a golang project
+- gump: Initialize a release script
+- license: Initialize a license file
 ```
 
 ## Cli examples

@@ -24,6 +24,8 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 
 #### $ {{exec "the-busy-man" "-help" | color "sh"}}
 
+#### $ {{exec "the-busy-man" "-l" | color "sh"}}
+
 ## Cli examples
 
 ```sh
