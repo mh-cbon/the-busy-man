@@ -161,6 +161,7 @@ func getPlugins(common *plugin.Plugin) map[string]pluginHandler {
 	ret["emd"] = &emd.Plugin{Plugin: common}
 	ret["git"] = &git.Plugin{Plugin: common}
 	ret["golang"] = &golang.Plugin{Plugin: common}
+	ret["go"] = &golang.Plugin{Plugin: common}
 	ret["gump"] = &gump.Plugin{Plugin: common}
 	ret["license"] = &license.Plugin{Plugin: common}
 	return ret

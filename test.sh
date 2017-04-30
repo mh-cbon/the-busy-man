@@ -64,5 +64,11 @@ tbm -w test git license:mit emd:mh-cbon/emd
 (cat test/README.e.md | grep "History") || exit 1
 
 rm -fr test && mkdir test
+tbm -w test git go glide
+(ls -alh test | grep .git) || exit 1
+(ls -alh test | grep main.go) || exit 1
+(ls -alh test | grep glide) || exit 1
+
+rm -fr test && mkdir test
 tbm -w test license # ? what happens
 (ls -alh test | grep LICENSE) || exit 1

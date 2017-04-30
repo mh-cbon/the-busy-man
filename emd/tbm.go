@@ -44,12 +44,11 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 		}
 	}
 	if plugin.Shades.Len() > 0 {
-		x := plugin.Shades.At(0)
+		x := plugin.Shades.First()
 		p.Log("x=%v", x)
 		if strings.Index(x, "/") > -1 {
 			return p.DlGhRawFile("README.e.md", x)
 		}
-		return p.Exec("emd", "init")
 	}
-	return nil
+	return p.Exec("emd", "init")
 }
