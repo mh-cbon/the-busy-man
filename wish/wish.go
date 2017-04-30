@@ -13,7 +13,7 @@ type Wish struct {
 func Parse(s string) (Wish, error) {
 	t := strings.Split(s, ":")
 	var x []string
-	if len(t) > 0 {
+	if len(t) > 1 {
 		x = strings.Split(t[1], "+") // can do better
 	}
 
