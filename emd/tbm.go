@@ -30,29 +30,25 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w *wish.Wishes) error {
-	x := w.Filter(wish.FilterByPlugin("emd"))
-	if x.Len() > 0 {
-		plugin := x.At(0)
-		err := p.Exec("emd", "-version")
+func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	err := p.Exec("emd", "-version")
+	if err != nil {
+		p.GoGet("github.com/Masterminds/glide")
+		err = p.GoGet("github.com/mh-cbon/emd")
 		if err != nil {
-			p.GoGet("github.com/Masterminds/glide")
-			err = p.GoGet("github.com/mh-cbon/emd")
-			if err != nil {
-				return err
-			}
-			err = p.GlideInstall("github.com/mh-cbon/emd")
-			if err != nil {
-				return err
-			}
+			return err
 		}
-		if plugin.Shades.Len() > 0 {
-			x := plugin.Shades.At(0)
-			if strings.Index(x, "/") > -1 {
-				return p.DlGhRawFile("README.e.md", x)
-			}
-			return p.Exec("emd", "init")
+		err = p.GlideInstall("github.com/mh-cbon/emd")
+		if err != nil {
+			return err
 		}
+	}
+	if plugin.Shades.Len() > 0 {
+		x := plugin.Shades.At(0)
+		if strings.Index(x, "/") > -1 {
+			return p.DlGhRawFile("README.e.md", x)
+		}
+		return p.Exec("emd", "init")
 	}
 	return nil
 }

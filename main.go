@@ -99,7 +99,7 @@ func pluginsHandle(common *plugin.Plugin, plugins map[string]pluginHandler, wish
 	for _, w := range wishes.Get() {
 		if p, ok := plugins[w.Plugin]; ok {
 			common.Log("handle %v...", w.Plugin)
-			err := p.Handle(wishes)
+			err := p.Handle(wishes, w)
 			if err != nil {
 				panic(err)
 			}
@@ -152,7 +152,7 @@ type pluginHandler interface {
 	Name() string
 	Help()
 	Description() string
-	Handle(w *wish.Wishes) error
+	Handle(*wish.Wishes, *wish.Wish) error
 }
 
 func getPlugins(common *plugin.Plugin) map[string]pluginHandler {

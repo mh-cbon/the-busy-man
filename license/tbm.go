@@ -28,20 +28,16 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w *wish.Wishes) error {
-	x := w.Filter(wish.FilterByPlugin("license"))
-	if x.Len() > 0 {
-		plugin := x.At(0)
-		err := p.Exec("license", "-version")
+func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	err := p.Exec("license", "-version")
+	if err != nil {
+		err = p.GoGet("github.com/nishanths/license")
 		if err != nil {
-			err = p.GoGet("github.com/nishanths/license")
-			if err != nil {
-				return err
-			}
+			return err
 		}
-		if plugin.Shades.Len() > 0 {
-			return p.Exec("license", "-o", "LICENSE", plugin.Shades.At(0))
-		}
+	}
+	if plugin.Shades.Len() > 0 {
+		return p.Exec("license", "-o", "LICENSE", plugin.Shades.At(0))
 	}
 	return nil
 }

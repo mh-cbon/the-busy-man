@@ -28,16 +28,12 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w *wish.Wishes) error {
-	x := w.Filter(wish.FilterByPlugin("go"))
-	if x.Len() > 0 {
-		data := `//Package...
+func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	data := `//Package...
 package xx
 
 func main(){
 
 }`
-		return p.Write("main.go", data)
-	}
-	return nil
+	return p.Write("main.go", data)
 }

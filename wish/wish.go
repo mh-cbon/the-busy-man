@@ -14,14 +14,14 @@ type Wish struct {
 }
 
 // Parse s and make a new Wish.
-func Parse(s string) (Wish, error) {
+func Parse(s string) (*Wish, error) {
 	t := strings.Split(s, ":")
 	var x []string
 	if len(t) > 1 {
 		x = strings.Split(t[1], "+") // can do better
 	}
 
-	return Wish{
+	return &Wish{
 		Plugin: t[0],
 		Shades: utils.NewStringSlice().Push(x...),
 	}, nil
@@ -38,8 +38,8 @@ func (w *Wish) HasShade(s string) bool {
 }
 
 //FilterByPlugin filters wishes by plugin p
-func FilterByPlugin(p ...string) func(Wish) bool {
-	return func(w Wish) bool {
+func FilterByPlugin(p ...string) func(*Wish) bool {
+	return func(w *Wish) bool {
 		for _, u := range p {
 			if u == w.Plugin {
 				return true
@@ -68,4 +68,4 @@ func NewWishes() *Wishes {
 	}
 }
 
-//go:generate lister wishs_gen.go Wish:*InternalWishes
+//go:generate lister wishs_gen.go *Wish:*InternalWishes

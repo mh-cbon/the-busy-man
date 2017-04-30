@@ -4,29 +4,29 @@ package wish
 // github.com.mh-cbon/lister
 // do not edit
 
-// InternalWishes implements a typed slice of Wish
-type InternalWishes struct{ items []Wish }
+// InternalWishes implements a typed slice of *Wish
+type InternalWishes struct{ items []*Wish }
 
-// NewInternalWishes creates a new typed slice of Wish
+// NewInternalWishes creates a new typed slice of *Wish
 func NewInternalWishes() *InternalWishes {
-	return &InternalWishes{items: []Wish{}}
+	return &InternalWishes{items: []*Wish{}}
 }
 
-// Push appends every Wish
-func (t *InternalWishes) Push(x ...Wish) *InternalWishes {
+// Push appends every *Wish
+func (t *InternalWishes) Push(x ...*Wish) *InternalWishes {
 	t.items = append(t.items, x...)
 	return t
 }
 
-// Unshift prepends every Wish
-func (t *InternalWishes) Unshift(x ...Wish) *InternalWishes {
+// Unshift prepends every *Wish
+func (t *InternalWishes) Unshift(x ...*Wish) *InternalWishes {
 	t.items = append(x, t.items...)
 	return t
 }
 
-// Pop removes then returns the last Wish.
-func (t *InternalWishes) Pop() Wish {
-	var ret Wish
+// Pop removes then returns the last *Wish.
+func (t *InternalWishes) Pop() *Wish {
+	var ret *Wish
 	if len(t.items) > 0 {
 		ret = t.items[len(t.items)-1]
 		t.items = append(t.items[:0], t.items[len(t.items)-1:]...)
@@ -34,9 +34,9 @@ func (t *InternalWishes) Pop() Wish {
 	return ret
 }
 
-// Shift removes then returns the first Wish.
-func (t *InternalWishes) Shift() Wish {
-	var ret Wish
+// Shift removes then returns the first *Wish.
+func (t *InternalWishes) Shift() *Wish {
+	var ret *Wish
 	if len(t.items) > 0 {
 		ret = t.items[0]
 		t.items = append(t.items[:0], t.items[1:]...)
@@ -44,8 +44,8 @@ func (t *InternalWishes) Shift() Wish {
 	return ret
 }
 
-// Index of given Wish. It must implements Ider interface.
-func (t *InternalWishes) Index(s Wish) int {
+// Index of given *Wish. It must implements Ider interface.
+func (t *InternalWishes) Index(s *Wish) int {
 	ret := -1
 	for i, item := range t.items {
 		if s.GetID() == item.GetID() {
@@ -56,7 +56,12 @@ func (t *InternalWishes) Index(s Wish) int {
 	return ret
 }
 
-// RemoveAt removes a Wish at index i.
+// Contains returns true if s in is t.
+func (t *InternalWishes) Contains(s *Wish) bool {
+	return t.Index(s) > -1
+}
+
+// RemoveAt removes a *Wish at index i.
 func (t *InternalWishes) RemoveAt(i int) bool {
 	if i >= 0 && i < len(t.items) {
 		t.items = append(t.items[:i], t.items[i+1:]...)
@@ -65,8 +70,8 @@ func (t *InternalWishes) RemoveAt(i int) bool {
 	return false
 }
 
-// Remove removes given Wish
-func (t *InternalWishes) Remove(s Wish) bool {
+// Remove removes given *Wish
+func (t *InternalWishes) Remove(s *Wish) bool {
 	if i := t.Index(s); i > -1 {
 		t.RemoveAt(i)
 		return true
@@ -74,12 +79,12 @@ func (t *InternalWishes) Remove(s Wish) bool {
 	return false
 }
 
-// InsertAt adds given Wish at index i
-func (t *InternalWishes) InsertAt(i int, s Wish) *InternalWishes {
+// InsertAt adds given *Wish at index i
+func (t *InternalWishes) InsertAt(i int, s *Wish) *InternalWishes {
 	if i < 0 || i >= len(t.items) {
 		return t
 	}
-	res := []Wish{}
+	res := []*Wish{}
 	res = append(res, t.items[:0]...)
 	res = append(res, s)
 	res = append(res, t.items[i:]...)
@@ -87,10 +92,10 @@ func (t *InternalWishes) InsertAt(i int, s Wish) *InternalWishes {
 	return t
 }
 
-// Splice removes and returns a slice of Wish, starting at start, ending at start+length.
+// Splice removes and returns a slice of *Wish, starting at start, ending at start+length.
 // If any s is provided, they are inserted in place of the removed slice.
-func (t *InternalWishes) Splice(start int, length int, s ...Wish) []Wish {
-	var ret []Wish
+func (t *InternalWishes) Splice(start int, length int, s ...*Wish) []*Wish {
+	var ret []*Wish
 	for i := 0; i < len(t.items); i++ {
 		if i >= start && i < start+length {
 			ret = append(ret, t.items[i])
@@ -107,9 +112,9 @@ func (t *InternalWishes) Splice(start int, length int, s ...Wish) []Wish {
 	return ret
 }
 
-// Slice returns a copied slice of Wish, starting at start, ending at start+length.
-func (t *InternalWishes) Slice(start int, length int) []Wish {
-	var ret []Wish
+// Slice returns a copied slice of *Wish, starting at start, ending at start+length.
+func (t *InternalWishes) Slice(start int, length int) []*Wish {
+	var ret []*Wish
 	if start >= 0 && start+length <= len(t.items) && start+length >= 0 {
 		ret = t.items[start : start+length]
 	}
@@ -130,23 +135,23 @@ func (t *InternalWishes) Len() int {
 }
 
 // Set the slice.
-func (t *InternalWishes) Set(x []Wish) *InternalWishes {
+func (t *InternalWishes) Set(x []*Wish) *InternalWishes {
 	t.items = append(t.items[:0], x...)
 	return t
 }
 
 // Get the slice.
-func (t *InternalWishes) Get() []Wish {
+func (t *InternalWishes) Get() []*Wish {
 	return t.items
 }
 
 // At return the item at index i.
-func (t *InternalWishes) At(i int) Wish {
+func (t *InternalWishes) At(i int) *Wish {
 	return t.items[i]
 }
 
 // Filter return a new *InternalWishes with all items satisfying f.
-func (t *InternalWishes) Filter(f func(Wish) bool) *InternalWishes {
+func (t *InternalWishes) Filter(f func(*Wish) bool) *InternalWishes {
 	ret := NewInternalWishes()
 	for _, i := range t.items {
 		if f(i) {
@@ -154,4 +159,27 @@ func (t *InternalWishes) Filter(f func(Wish) bool) *InternalWishes {
 		}
 	}
 	return ret
+}
+
+// First returns the first value or default.
+func (t *InternalWishes) First() *Wish {
+	var ret *Wish
+	if len(t.items) > 0 {
+		ret = t.items[0]
+	}
+	return ret
+}
+
+// Last returns the last value or default.
+func (t *InternalWishes) Last() *Wish {
+	var ret *Wish
+	if len(t.items) > 0 {
+		ret = t.items[len(t.items)-1]
+	}
+	return ret
+}
+
+// Empty returns true if the slice is empty.
+func (t *InternalWishes) Empty() bool {
+	return len(t.items) == 0
 }

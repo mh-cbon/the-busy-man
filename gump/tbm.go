@@ -30,35 +30,31 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w *wish.Wishes) error {
-	x := w.Filter(wish.FilterByPlugin("gump"))
-	if x.Len() > 0 {
-		plugin := x.At(0)
-		err := p.Exec("gump", "-version")
+func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	err := p.Exec("gump", "-version")
+	if err != nil {
+		p.GoGet("github.com/Masterminds/glide")
+		err = p.GoGet("github.com/mh-cbon/gump")
 		if err != nil {
-			p.GoGet("github.com/Masterminds/glide")
-			err = p.GoGet("github.com/mh-cbon/gump")
-			if err != nil {
-				return err
-			}
-			err = p.GlideInstall("github.com/mh-cbon/gump")
-			if err != nil {
-				return err
-			}
+			return err
 		}
-		if plugin.Shades.Len() > 0 {
-			x := plugin.Shades.At(0)
-			if strings.Index(x, "/") > -1 {
-				return p.DlGhRawFile(".version.sh", x)
-			}
-			data := `PREBUMP=
+		err = p.GlideInstall("github.com/mh-cbon/gump")
+		if err != nil {
+			return err
+		}
+	}
+	if plugin.Shades.Len() > 0 {
+		x := plugin.Shades.At(0)
+		if strings.Index(x, "/") > -1 {
+			return p.DlGhRawFile(".version.sh", x)
+		}
+		data := `PREBUMP=
 
 PREVERSION=
 
 POSTVERSION=
 `
-			return p.Write(".version.sh", data)
-		}
+		return p.Write(".version.sh", data)
 	}
 	return nil
 }

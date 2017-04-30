@@ -28,23 +28,18 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w *wish.Wishes) error {
-	x := w.Filter(wish.FilterByPlugin("changelog"))
-	if x.Len() > 0 {
-		// plugin := x.At(0)
-		err := p.Exec("changelog", "-version")
+func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	err := p.Exec("changelog", "-version")
+	if err != nil {
+		p.GoGet("github.com/Masterminds/glide")
+		err = p.GoGet("github.com/mh-cbon/changelog")
 		if err != nil {
-			p.GoGet("github.com/Masterminds/glide")
-			err = p.GoGet("github.com/mh-cbon/changelog")
-			if err != nil {
-				return err
-			}
-			err = p.GlideInstall("github.com/mh-cbon/changelog")
-			if err != nil {
-				return err
-			}
+			return err
 		}
-		return p.Exec("changelog", "init")
+		err = p.GlideInstall("github.com/mh-cbon/changelog")
+		if err != nil {
+			return err
+		}
 	}
-	return nil
+	return p.Exec("changelog", "init")
 }
