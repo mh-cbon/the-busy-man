@@ -43,11 +43,12 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 			return err
 		}
 	}
-	if plugin.Shades.Len() > 0 {
-		x := plugin.Shades.At(0)
+	if plugin.Shades.Empty() == false {
+		x := plugin.Shades.First()
 		if strings.Index(x, "/") > -1 {
 			return p.DlGhRawFile(".version.sh", x)
 		}
+	} else {
 		data := `PREBUMP=
 
 PREVERSION=
