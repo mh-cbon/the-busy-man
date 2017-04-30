@@ -14,6 +14,8 @@ tbm -version
 tbm -l
 tbm -h git
 
+VERBOSE=y
+
 rm -fr test && mkdir test
 tbm -w test git
 (ls -alh test | grep .git) || exit 1

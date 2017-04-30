@@ -19,7 +19,11 @@ import (
 var name = "the-busy-man"
 var version = "0.0.0"
 
+var verbose = false
+
 func main() {
+
+	verbose = os.Getenv("VERBOSE") != ""
 
 	wd, err := os.Getwd()
 	if err != nil {
@@ -64,6 +68,9 @@ func main() {
 	}
 
 	wishes := wish.NewWishes()
+	wishes.SetVerbose(os.Getenv("VERBOSE") != "")
+	wishes.Log("wd=%v", wd)
+	wishes.Log("w=%v", w)
 	wishes.SetOldWd(wd)
 
 	for _, arg := range args {
@@ -71,7 +78,15 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		wishes.Log("wish=%v", w)
 		wishes.Push(w)
+	}
+
+	for _, p := range getPlugins() {
+		err := p.Handle(wishes)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
@@ -120,7 +135,7 @@ type plugin interface {
 	Name() string
 	Help()
 	Description() string
-	Handle(w wish.Wishes) error
+	Handle(w *wish.Wishes) error
 }
 
 func getPlugins() map[string]plugin {

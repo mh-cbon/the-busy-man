@@ -27,7 +27,7 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w wish.Wishes) error {
+func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("license"))
 	if x.Len() > 0 {
 		plugin := x.At(0)

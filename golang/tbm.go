@@ -28,9 +28,10 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w wish.Wishes) error {
+func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("go"))
 	if x.Len() > 0 {
+		w.Log("golang writes main...")
 		data := `//Package...
 package xx
 

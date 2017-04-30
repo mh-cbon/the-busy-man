@@ -30,12 +30,13 @@ func (p *Plugin) Help() {
 }
 
 // Handle wishes of the busy man.
-func (p *Plugin) Handle(w wish.Wishes) error {
+func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("git"))
 	if x.Len() > 0 {
 		plugin := x.At(0)
 		data := ``
 		if w.Filter(wish.FilterByPlugin("glide", "dep")).Len() > 0 {
+			w.Log("adding vendor to gitignore...")
 			data += "vendor/\n"
 		}
 		err := ioutil.WriteFile(".gitignore", []byte(data), os.ModePerm)
@@ -43,16 +44,19 @@ func (p *Plugin) Handle(w wish.Wishes) error {
 			return err
 		}
 		if plugin.Shades.Len() == 0 || plugin.HasShade("init") {
+			w.Log("git init...")
 			err = exec.Command("git", "init").Run()
 			if err != nil {
 				return err
 			}
 		}
 		if plugin.HasShade("commit") {
+			w.Log("git add...")
 			err = exec.Command("git", "add", "-A").Run()
 			if err != nil {
 				return err
 			}
+			w.Log("git commit...")
 			err = exec.Command("git", "commit", "-am", "Project initialization").Run()
 			if err != nil {
 				return err

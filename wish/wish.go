@@ -1,12 +1,17 @@
 package wish
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/mh-cbon/the-busy-man/utils"
+)
 
 // Wish tells about a wish and it shades,
 // wish:shade1+shade2
 type Wish struct {
 	Plugin string
-	Shades *StringSlice
+	Shades *utils.StringSlice
 }
 
 // Parse s and make a new Wish.
@@ -19,7 +24,7 @@ func Parse(s string) (Wish, error) {
 
 	return Wish{
 		Plugin: t[0],
-		Shades: NewStringSlice().Push(x...),
+		Shades: utils.NewStringSlice().Push(x...),
 	}, nil
 }
 
@@ -55,7 +60,8 @@ func FilterByShade(s string) func(string) bool {
 // Wishes is a slice of Wish
 type Wishes struct {
 	InternalWishes
-	oldpwd string
+	oldpwd  string
+	verbose bool
 }
 
 // NewWishes creates a new typed slice of Wish
@@ -65,10 +71,21 @@ func NewWishes() *Wishes {
 	}
 }
 
-// SetOldWd saves oldpwd.
-func (t *Wishes) SetOldWd(oldpwd string) {
-	t.oldpwd = oldpwd
+// SetVerbose to enable logging.
+func (w *Wishes) SetVerbose(s bool) {
+	w.verbose = s
 }
 
-//go:generate lister string_gen.go string:StringSlice
+// Log message if verbose = true
+func (w *Wishes) Log(format string, c ...interface{}) {
+	if w.verbose {
+		fmt.Printf(format, c...)
+	}
+}
+
+// SetOldWd saves oldpwd.
+func (w *Wishes) SetOldWd(oldpwd string) {
+	w.oldpwd = oldpwd
+}
+
 //go:generate lister wishs_gen.go Wish:*InternalWishes
