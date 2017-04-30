@@ -38,6 +38,10 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 			if err != nil {
 				return err
 			}
+			err = p.GlideInstall("github.com/mh-cbon/changelog")
+			if err != nil {
+				return err
+			}
 		}
 		return p.Exec("changelog", "init")
 	}

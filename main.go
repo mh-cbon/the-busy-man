@@ -96,7 +96,6 @@ func parseWishes(args []string) *wish.Wishes {
 }
 
 func pluginsHandle(common *plugin.Plugin, plugins map[string]pluginHandler, wishes *wish.Wishes) {
-
 	for _, w := range wishes.Get() {
 		if p, ok := plugins[w.Plugin]; ok {
 			common.Log("handle %v...", w.Plugin)

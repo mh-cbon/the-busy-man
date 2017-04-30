@@ -40,6 +40,10 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 			if err != nil {
 				return err
 			}
+			err = p.GlideInstall("github.com/mh-cbon/emd")
+			if err != nil {
+				return err
+			}
 		}
 		if plugin.Shades.Len() > 0 {
 			x := plugin.Shades.At(0)

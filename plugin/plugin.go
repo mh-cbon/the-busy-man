@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 // Plugin provides common func to plugins.
@@ -47,6 +48,14 @@ func (p *Plugin) Exec(c string, x ...string) error {
 // GoGet a package.
 func (p *Plugin) GoGet(c string) error {
 	return p.Exec("go", "get", "-u", c)
+}
+
+// GlideInstall a package.
+func (p *Plugin) GlideInstall(c string) error {
+	p.Log("exec glide install %v", c)
+	cmd := exec.Command("glide", "install")
+	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", c)
+	return cmd.Run()
 }
 
 // Dl download a file.
