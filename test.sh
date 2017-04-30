@@ -49,8 +49,8 @@ tbm -w test git license:mit gump
 rm -fr test && mkdir test
 tbm -w test git license:mit gump:mh-cbon/emd
 (ls -alh test | grep .git) || exit 1
-(ls -alh test | grep README.e.md) || exit 1
-(cat test/README.e.md | grep "gh-api") || exit 1
+(ls -alh test | grep .version.sh) || exit 1
+(cat test/.version.sh | grep "gh-api") || exit 1
 
 rm -fr test && mkdir test
 tbm -w test git license:mit emd
