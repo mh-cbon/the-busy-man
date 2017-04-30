@@ -36,7 +36,7 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 			return err
 		}
 	}
-	err = p.Exec("glide", "init")
+	err = p.Exec("glide", "init", "--non-interactive")
 	if err != nil {
 		return err
 	}
