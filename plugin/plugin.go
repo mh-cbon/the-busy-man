@@ -42,7 +42,12 @@ func (p *Plugin) Write(file string, data string) error {
 // Exec a command.
 func (p *Plugin) Exec(c string, x ...string) error {
 	p.Log("exec %v %v...", c, x)
-	return exec.Command(c, x...).Run()
+	cmd := exec.Command(c, x...)
+	if p.verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+	return cmd.Run()
 }
 
 // GoGet a package.
@@ -55,6 +60,10 @@ func (p *Plugin) GlideInstall(c string) error {
 	p.Log("exec glide install %v", c)
 	cmd := exec.Command("glide", "install")
 	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", c)
+	if p.verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
 	return cmd.Run()
 }
 
