@@ -35,7 +35,7 @@ the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/
 I recommend you create an alias:
 ```sh
 $ cat <<EOT > ~/.bashrc
-alias tbm="the-busy-man license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:init:commit"
+alias tbm="the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit"
 EOT
 source ~/.bashrc
 ```

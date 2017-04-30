@@ -51,14 +51,14 @@ Options
 
 #### $ the-busy-man -l
 ```sh
+- emd: Initialize a README emd file
+- git: Initialize a git repository
+- golang: Initialize a golang project
 - golang: Initialize a golang project
 - glide: Initialize a glide package
 - gump: Initialize a release script
 - license: Initialize a license file
 - changelog: Initialize a changelog file
-- emd: Initialize a README emd file
-- git: Initialize a git repository
-- golang: Initialize a golang project
 ```
 
 ## Cli examples
@@ -70,7 +70,7 @@ the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/
 I recommend you create an alias:
 ```sh
 $ cat <<EOT > ~/.bashrc
-alias tbm="the-busy-man license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:init:commit"
+alias tbm="the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit"
 EOT
 source ~/.bashrc
 ```
