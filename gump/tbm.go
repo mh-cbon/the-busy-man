@@ -49,14 +49,12 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 		if strings.Index(x, "/") > -1 {
 			return p.DlGhRawFile(".version.sh", x)
 		}
-	} else {
-		data := `PREBUMP=
+	}
+	data := `PREBUMP=
 
 PREVERSION=
 
 POSTVERSION=
 `
-		return p.Write(".version.sh", data)
-	}
-	return nil
+	return p.Write(".version.sh", data)
 }
