@@ -96,11 +96,14 @@ func parseWishes(args []string) *wish.Wishes {
 }
 
 func pluginsHandle(common *plugin.Plugin, plugins map[string]pluginHandler, wishes *wish.Wishes) {
-	for _, p := range plugins {
-		common.Log("handle %v...", p.Name())
-		err := p.Handle(wishes)
-		if err != nil {
-			panic(err)
+
+	for _, w := range wishes.Get() {
+		if p, ok := plugins[w.Plugin]; ok {
+			common.Log("handle %v...", w.Plugin)
+			err := p.Handle(wishes)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 }
