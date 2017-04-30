@@ -39,5 +39,6 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 	if plugin.Shades.Len() > 0 {
 		return p.Exec("license", "-o", "LICENSE", plugin.Shades.At(0))
 	}
+	p.Warn("missing license name in 'license:?' intent")
 	return nil
 }

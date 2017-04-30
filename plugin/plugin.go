@@ -33,6 +33,11 @@ func (p *Plugin) Log(format string, c ...interface{}) {
 	}
 }
 
+// Warn message
+func (p *Plugin) Warn(format string, c ...interface{}) {
+	fmt.Printf("!! "+format+"\n", c...)
+}
+
 // Write a file
 func (p *Plugin) Write(file string, data string) error {
 	p.Log("writes %v...", file)

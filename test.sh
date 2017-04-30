@@ -70,5 +70,4 @@ tbm -w test git go glide
 (ls -alh test | grep glide) || exit 1
 
 rm -fr test && mkdir test
-tbm -w test license # ? what happens
-(ls -alh test | grep LICENSE) || exit 1
+tbm -w test license | grep "missing license"
