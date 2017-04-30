@@ -51,12 +51,12 @@ Options
 
 #### $ the-busy-man -l
 ```sh
+- gump: Initialize a release script
+- license: Initialize a license file
 - changelog: Initialize a changelog file
 - emd: Initialize a README emd file
 - git: Initialize a git repository
 - golang: Initialize a golang project
-- gump: Initialize a release script
-- license: Initialize a license file
 ```
 
 ## Cli examples
