@@ -36,6 +36,7 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 		plugin := x.At(0)
 		err := p.Exec("gump", "-version")
 		if err != nil {
+			p.GoGet("github.com/Masterminds/glide")
 			err = p.GoGet("github.com/mh-cbon/gump")
 			if err != nil {
 				return err
