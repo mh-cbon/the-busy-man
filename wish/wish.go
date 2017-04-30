@@ -12,7 +12,10 @@ type Wish struct {
 // Parse s and make a new Wish.
 func Parse(s string) (Wish, error) {
 	t := strings.Split(s, ":")
-	x := strings.Split(t[1], "+") // can do better
+	var x []string
+	if len(t) > 0 {
+		x = strings.Split(t[1], "+") // can do better
+	}
 
 	return Wish{
 		Plugin: t[0],
