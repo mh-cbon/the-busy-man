@@ -42,13 +42,13 @@ func (p *Plugin) Handle(w wish.Wishes) error {
 		if err != nil {
 			return err
 		}
-		if plugin.Shades.Len() == 0 || plugin.Shades.Index("init") > -1 {
+		if plugin.Shades.Len() == 0 || plugin.HasShade("init") {
 			err = exec.Command("git", "init").Run()
 			if err != nil {
 				return err
 			}
 		}
-		if plugin.Shades.Index("commit") > -1 {
+		if plugin.HasShade("commit") {
 			err = exec.Command("git", "add", "-A").Run()
 			if err != nil {
 				return err

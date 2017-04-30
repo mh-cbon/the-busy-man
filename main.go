@@ -59,7 +59,12 @@ func main() {
 		return
 	}
 
+	if w != wd {
+		os.Chdir(w)
+	}
+
 	wishes := wish.NewWishes()
+	wishes.SetOldWd(wd)
 
 	for _, arg := range args {
 		w, err := wish.Parse(arg)

@@ -28,6 +28,11 @@ func (w *Wish) GetID() string {
 	return w.Plugin
 }
 
+// HasShade returns true if a shade exists.
+func (w *Wish) HasShade(s string) bool {
+	return w.Shades.Index(s) > -1
+}
+
 //FilterByPlugin filters wishes by plugin p
 func FilterByPlugin(p ...string) func(Wish) bool {
 	return func(w Wish) bool {
@@ -47,5 +52,23 @@ func FilterByShade(s string) func(string) bool {
 	}
 }
 
+// Wishes is a slice of Wish
+type Wishes struct {
+	InternalWishes
+	oldpwd string
+}
+
+// NewWishes creates a new typed slice of Wish
+func NewWishes() *Wishes {
+	return &Wishes{
+		InternalWishes: *NewInternalWishes(),
+	}
+}
+
+// SetOldWd saves oldpwd.
+func (t *Wishes) SetOldWd(oldpwd string) {
+	t.oldpwd = oldpwd
+}
+
 //go:generate lister string_gen.go string:StringSlice
-//go:generate lister wishs_gen.go Wish:*Wishes
+//go:generate lister wishs_gen.go Wish:*InternalWishes
