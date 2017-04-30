@@ -29,7 +29,7 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 ## Cli examples
 
 ```sh
-the-busy-man license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:init:commit
+the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit
 ```
 
 I recommend you create an alias:
