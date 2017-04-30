@@ -2,14 +2,14 @@ package golang
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
 
+	"github.com/mh-cbon/the-busy-man/plugin"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
 
 // Plugin golang for the busy man.
 type Plugin struct {
+	*plugin.Plugin
 }
 
 // Name of the plugin
@@ -31,14 +31,13 @@ func (p *Plugin) Help() {
 func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("go"))
 	if x.Len() > 0 {
-		w.Log("golang writes main...")
 		data := `//Package...
 package xx
 
 func main(){
 
 }`
-		return ioutil.WriteFile("main.go", []byte(data), os.ModePerm)
+		return p.Write("main.go", data)
 	}
 	return nil
 }

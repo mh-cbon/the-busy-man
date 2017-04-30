@@ -2,18 +2,15 @@ package gump
 
 import (
 	"fmt"
-	"io"
-	"io/ioutil"
-	"net/http"
-	"os"
-	"os/exec"
 	"strings"
 
+	"github.com/mh-cbon/the-busy-man/plugin"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
 
 // Plugin gump for the busy man.
 type Plugin struct {
+	*plugin.Plugin
 }
 
 // Name of the plugin
@@ -37,10 +34,9 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("gump"))
 	if x.Len() > 0 {
 		plugin := x.At(0)
-		err := exec.Command("gump", "-version").Run()
+		err := p.Exec("gump", "-version")
 		if err != nil {
-			w.Log("gump not found, installing...")
-			err = exec.Command("go", "get", "-u", "github.com/mh-cbon/gump").Run()
+			err = p.GoGet("github.com/mh-cbon/gump")
 			if err != nil {
 				return err
 			}
@@ -48,31 +44,15 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 		if plugin.Shades.Len() > 0 {
 			x := plugin.Shades.At(0)
 			if strings.Index(x, "/") > -1 {
-				w.Log("gump downloading from %v", x)
-				response, err := http.Get("http://github.com/" + x + "/master/.version.sh")
-				if err != nil {
-					return err
-				}
-				defer response.Body.Close()
-				f, err := os.Create(".version.sh")
-				if err != nil {
-					return err
-				}
-				_, err = io.Copy(f, response.Body)
-				if err != nil {
-					return err
-				}
-			} else {
-				w.Log("gump init...")
-				data := `PREBUMP=
+				return p.DlGhRawFile(".version.sh", x)
+			}
+			data := `PREBUMP=
 
 PREVERSION=
 
 POSTVERSION=
 `
-				return ioutil.WriteFile(".version.sh", []byte(data), os.ModePerm)
-
-			}
+			return p.Write(".version.sh", data)
 		}
 	}
 	return nil

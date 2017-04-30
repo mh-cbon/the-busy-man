@@ -2,15 +2,14 @@ package git
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
-	"os/exec"
 
+	"github.com/mh-cbon/the-busy-man/plugin"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
 
 // Plugin git for the busy man.
 type Plugin struct {
+	*plugin.Plugin
 }
 
 // Name of the plugin
@@ -36,28 +35,25 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 		plugin := x.At(0)
 		data := ``
 		if w.Filter(wish.FilterByPlugin("glide", "dep")).Len() > 0 {
-			w.Log("adding vendor to gitignore...")
+			p.Log("adding vendor to gitignore...")
 			data += "vendor/\n"
 		}
-		err := ioutil.WriteFile(".gitignore", []byte(data), os.ModePerm)
+		err := p.Write(".gitignore", data)
 		if err != nil {
 			return err
 		}
 		if plugin.Shades.Len() == 0 || plugin.HasShade("init") {
-			w.Log("git init...")
-			err = exec.Command("git", "init").Run()
+			err = p.Exec("git", "init")
 			if err != nil {
 				return err
 			}
 		}
 		if plugin.HasShade("commit") {
-			w.Log("git add...")
-			err = exec.Command("git", "add", "-A").Run()
+			err = p.Exec("git", "add", "-A")
 			if err != nil {
 				return err
 			}
-			w.Log("git commit...")
-			err = exec.Command("git", "commit", "-am", "Project initialization").Run()
+			err = p.Exec("git", "commit", "-am", "Project initialization")
 			if err != nil {
 				return err
 			}

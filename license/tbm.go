@@ -2,13 +2,14 @@ package license
 
 import (
 	"fmt"
-	"os/exec"
 
+	"github.com/mh-cbon/the-busy-man/plugin"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
 
 // Plugin license for the busy man.
 type Plugin struct {
+	*plugin.Plugin
 }
 
 // Name of the plugin
@@ -31,15 +32,15 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("license"))
 	if x.Len() > 0 {
 		plugin := x.At(0)
-		err := exec.Command("license", "-version").Run()
+		err := p.Exec("license", "-version")
 		if err != nil {
-			err = exec.Command("go", "get", "-u", "github.com/nishanths/license").Run()
+			err = p.GoGet("github.com/nishanths/license")
 			if err != nil {
 				return err
 			}
 		}
 		if plugin.Shades.Len() > 0 {
-			return exec.Command("license", "-o", "LICENSE", plugin.Shades.At(0)).Run()
+			return p.Exec("license", "-o", "LICENSE", plugin.Shades.At(0))
 		}
 	}
 	return nil

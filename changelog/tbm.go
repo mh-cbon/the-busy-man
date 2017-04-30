@@ -2,13 +2,14 @@ package changelog
 
 import (
 	"fmt"
-	"os/exec"
 
+	"github.com/mh-cbon/the-busy-man/plugin"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
 
 // Plugin changelog for the busy man.
 type Plugin struct {
+	*plugin.Plugin
 }
 
 // Name of the plugin
@@ -31,16 +32,14 @@ func (p *Plugin) Handle(w *wish.Wishes) error {
 	x := w.Filter(wish.FilterByPlugin("changelog"))
 	if x.Len() > 0 {
 		// plugin := x.At(0)
-		err := exec.Command("changelog", "-version").Run()
+		err := p.Exec("changelog", "-version")
 		if err != nil {
-			w.Log("changelog not found, installing...")
-			err = exec.Command("go", "get", "-u", "github.com/mh-cbon/changelog").Run()
+			err = p.GoGet("github.com/mh-cbon/changelog")
 			if err != nil {
 				return err
 			}
 		}
-		w.Log("changelog init")
-		return exec.Command("changelog", "init").Run()
+		return p.Exec("changelog", "init")
 	}
 	return nil
 }

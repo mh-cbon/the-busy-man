@@ -1,7 +1,6 @@
 package wish
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/mh-cbon/the-busy-man/utils"
@@ -60,8 +59,6 @@ func FilterByShade(s string) func(string) bool {
 // Wishes is a slice of Wish
 type Wishes struct {
 	InternalWishes
-	oldpwd  string
-	verbose bool
 }
 
 // NewWishes creates a new typed slice of Wish
@@ -69,23 +66,6 @@ func NewWishes() *Wishes {
 	return &Wishes{
 		InternalWishes: *NewInternalWishes(),
 	}
-}
-
-// SetVerbose to enable logging.
-func (w *Wishes) SetVerbose(s bool) {
-	w.verbose = s
-}
-
-// Log message if verbose = true
-func (w *Wishes) Log(format string, c ...interface{}) {
-	if w.verbose {
-		fmt.Printf(format, c...)
-	}
-}
-
-// SetOldWd saves oldpwd.
-func (w *Wishes) SetOldWd(oldpwd string) {
-	w.oldpwd = oldpwd
 }
 
 //go:generate lister wishs_gen.go Wish:*InternalWishes

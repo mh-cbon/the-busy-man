@@ -12,6 +12,7 @@ import (
 	"github.com/mh-cbon/the-busy-man/golang"
 	"github.com/mh-cbon/the-busy-man/gump"
 	"github.com/mh-cbon/the-busy-man/license"
+	"github.com/mh-cbon/the-busy-man/plugin"
 	"github.com/mh-cbon/the-busy-man/utils"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
@@ -50,16 +51,22 @@ func main() {
 		showVer()
 		return
 	}
-	if help || h {
-		if len(args) > 0 {
-			showPluginHelp(args)
-		} else {
-			showHelp()
-		}
+	if len(args) == 0 && (help || h) {
+		showHelp()
+		return
+	}
+
+	common := &plugin.Plugin{}
+	common.SetVerbose(os.Getenv("VERBOSE") != "")
+
+	plugins := getPlugins(common)
+
+	if len(args) > 0 && (help || h) {
+		showPluginHelp(plugins, args)
 		return
 	}
 	if l {
-		showPlugins()
+		showPlugins(plugins)
 		return
 	}
 
@@ -67,22 +74,30 @@ func main() {
 		os.Chdir(w)
 	}
 
-	wishes := wish.NewWishes()
-	wishes.SetVerbose(os.Getenv("VERBOSE") != "")
-	wishes.Log("wd=%v", wd)
-	wishes.Log("w=%v", w)
-	wishes.SetOldWd(wd)
+	common.Log("wd=%v", wd)
+	common.Log("w=%v", w)
+	common.SetOldWd(wd)
 
+	wishes := parseWishes(args)
+	pluginsHandle(common, plugins, wishes)
+
+}
+
+func parseWishes(args []string) *wish.Wishes {
+	wishes := wish.NewWishes()
 	for _, arg := range args {
 		w, err := wish.Parse(arg)
 		if err != nil {
 			panic(err)
 		}
-		wishes.Log("wish=%v", w)
 		wishes.Push(w)
 	}
+	return wishes
+}
 
-	for _, p := range getPlugins() {
+func pluginsHandle(common *plugin.Plugin, plugins map[string]pluginHandler, wishes *wish.Wishes) {
+	for _, p := range plugins {
+		common.Log("handle %v...", p.Name())
 		err := p.Handle(wishes)
 		if err != nil {
 			panic(err)
@@ -96,11 +111,11 @@ func showVer() {
 
 //go:generate lister -p utils utils/string_slice.go string:StringSlice
 
-func showPluginHelp(p []string) {
+func showPluginHelp(plugins map[string]pluginHandler, p []string) {
 	showVer()
 	fmt.Println()
 	x := utils.NewStringSlice().Push(p...)
-	for _, plugin := range getPlugins() {
+	for _, plugin := range plugins {
 		if x.Index(plugin.Name()) > -1 {
 			plugin.Help()
 		}
@@ -125,26 +140,26 @@ func showHelp() {
 	fmt.Println()
 }
 
-func showPlugins() {
-	for _, p := range getPlugins() {
+func showPlugins(plugins map[string]pluginHandler) {
+	for _, p := range plugins {
 		fmt.Printf("- %v: %v\n", p.Name(), p.Description())
 	}
 }
 
-type plugin interface {
+type pluginHandler interface {
 	Name() string
 	Help()
 	Description() string
 	Handle(w *wish.Wishes) error
 }
 
-func getPlugins() map[string]plugin {
-	ret := map[string]plugin{}
-	ret["changelog"] = &changelog.Plugin{}
-	ret["emd"] = &emd.Plugin{}
-	ret["git"] = &git.Plugin{}
-	ret["golang"] = &golang.Plugin{}
-	ret["gump"] = &gump.Plugin{}
-	ret["license"] = &license.Plugin{}
+func getPlugins(common *plugin.Plugin) map[string]pluginHandler {
+	ret := map[string]pluginHandler{}
+	ret["changelog"] = &changelog.Plugin{Plugin: common}
+	ret["emd"] = &emd.Plugin{Plugin: common}
+	ret["git"] = &git.Plugin{Plugin: common}
+	ret["golang"] = &golang.Plugin{Plugin: common}
+	ret["gump"] = &gump.Plugin{Plugin: common}
+	ret["license"] = &license.Plugin{Plugin: common}
 	return ret
 }
