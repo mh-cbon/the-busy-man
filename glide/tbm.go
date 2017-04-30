@@ -1,4 +1,4 @@
-package git
+package glide
 
 import (
 	"fmt"
@@ -31,7 +31,7 @@ func (p *Plugin) Help() {
 func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 	err := p.Exec("glide", "-version")
 	if err != nil {
-		err = p.GoGet("github.com/mh-cbon/emd")
+		err = p.GoGet("github.com/Masterminds/glide")
 		if err != nil {
 			return err
 		}

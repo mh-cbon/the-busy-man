@@ -9,6 +9,7 @@ import (
 	"github.com/mh-cbon/the-busy-man/changelog"
 	"github.com/mh-cbon/the-busy-man/emd"
 	"github.com/mh-cbon/the-busy-man/git"
+	"github.com/mh-cbon/the-busy-man/glide"
 	"github.com/mh-cbon/the-busy-man/golang"
 	"github.com/mh-cbon/the-busy-man/gump"
 	"github.com/mh-cbon/the-busy-man/license"
@@ -162,6 +163,7 @@ func getPlugins(common *plugin.Plugin) map[string]pluginHandler {
 	ret["git"] = &git.Plugin{Plugin: common}
 	ret["golang"] = &golang.Plugin{Plugin: common}
 	ret["go"] = &golang.Plugin{Plugin: common}
+	ret["glide"] = &glide.Plugin{Plugin: common}
 	ret["gump"] = &gump.Plugin{Plugin: common}
 	ret["license"] = &license.Plugin{Plugin: common}
 	return ret
