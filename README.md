@@ -32,7 +32,7 @@ go get github.com/mh-cbon/the-busy-man
 
 #### $ the-busy-man -help
 ```sh
-the-busy-man 0.0.0
+the-busy-man 0.0.1
 
 Usage
 
