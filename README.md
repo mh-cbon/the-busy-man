@@ -32,7 +32,7 @@ go get github.com/mh-cbon/the-busy-man
 
 #### $ the-busy-man -help
 ```sh
-the-busy-man 0.0.1
+the-busy-man 0.0.0
 
 Usage
 
@@ -51,26 +51,26 @@ Options
 
 #### $ the-busy-man -l
 ```sh
-- emd: Initialize a README emd file
-- git: Initialize a git repository
-- golang: Initialize a golang project
 - golang: Initialize a golang project
 - glide: Initialize a glide package
 - gump: Initialize a release script
 - license: Initialize a license file
 - changelog: Initialize a changelog file
+- emd: Initialize a README emd file
+- git: Initialize a git repository
+- golang: Initialize a golang project
 ```
 
 ## Cli examples
 
 ```sh
-the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit
+the-busy-man git:init license:mit emd:mh-cbon/emd golang gump:mh-cbon/gump git:commit changelog git:commit+amend
 ```
 
 I recommend you create an alias:
 ```sh
-$ cat <<EOT > ~/.bashrc
-alias tbm="the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit"
+$ cat <<EOT >> ~/.bashrc
+alias tbm="the-busy-man git:init license:mit emd:mh-cbon/emd golang gump:mh-cbon/gump git:commit changelog git:commit+amend"
 EOT
 source ~/.bashrc
 ```
