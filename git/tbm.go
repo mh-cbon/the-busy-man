@@ -50,7 +50,11 @@ func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
 		if err != nil {
 			return err
 		}
-		err = p.Exec("git", "commit", "-am", "Project initialization")
+		args := []string{"commit", "-am", "Project initialization"}
+		if plugin.HasShade("amend") {
+			args = append(args, "--amend")
+		}
+		err = p.Exec("git", args...)
 		if err != nil {
 			return err
 		}

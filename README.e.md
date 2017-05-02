@@ -29,13 +29,13 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 ## Cli examples
 
 ```sh
-the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit
+the-busy-man git:init license:mit emd:mh-cbon/emd golang gump:mh-cbon/gump git:commit changelog git:commit+amend
 ```
 
 I recommend you create an alias:
 ```sh
-$ cat <<EOT > ~/.bashrc
-alias tbm="the-busy-man git:init license:mit emd:mh-cbon/emd changelog golang gump:mh-cbon/gump git:commit"
+$ cat <<EOT >> ~/.bashrc
+alias tbm="the-busy-man git:init license:mit emd:mh-cbon/emd golang gump:mh-cbon/gump git:commit changelog git:commit+amend"
 EOT
 source ~/.bashrc
 ```
