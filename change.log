@@ -1,4 +1,14 @@
 
+0.0.2
+
+  * README fix alias command, add amend shade to git
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 02 May 2017 11:38:24 +0200
+
+
+
 0.0.1
 
   * init
