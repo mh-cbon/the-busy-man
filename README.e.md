@@ -15,8 +15,6 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 
 # Install
 
-{{template "gh/releases" .}}
-
 #### go
 {{template "go/install" .}}
 
