@@ -58,7 +58,6 @@ Options
 - changelog: Initialize a changelog file
 - emd: Initialize a README emd file
 - git: Initialize a git repository
-- golang: Initialize a golang project
 ```
 
 ## Cli examples
