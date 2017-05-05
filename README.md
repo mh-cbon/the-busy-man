@@ -114,7 +114,8 @@ the-busy-man 0.0.0
 ## Cli examples
 
 ```sh
-the-busy-man git:init license:mit emd:mh-cbon/emd golang gump:mh-cbon/gump git:commit changelog git:commit+amend
+the-busy-man git:init license:mit emd:mh-cbon/emd golang gump:mh-cbon/gump \
+	git:commit changelog git:commit+amend
 ```
 
 I recommend you create an alias:
