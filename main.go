@@ -17,7 +17,6 @@ import (
 	"github.com/mh-cbon/the-busy-man/gump"
 	"github.com/mh-cbon/the-busy-man/license"
 	"github.com/mh-cbon/the-busy-man/plugin"
-	"github.com/mh-cbon/the-busy-man/utils"
 	"github.com/mh-cbon/the-busy-man/wish"
 )
 
@@ -118,10 +117,9 @@ func showVer() {
 func showPluginHelp(plugins map[string]pluginHandler, p []string) {
 	showVer()
 	fmt.Println()
-	x := utils.NewStringSlice().Push(p...)
-	for _, plugin := range plugins {
-		if x.Index(plugin.Name()) > -1 {
-			plugin.Help()
+	for _, name := range p {
+		if x, ok := plugins[name]; ok {
+			x.Help()
 		}
 	}
 }
