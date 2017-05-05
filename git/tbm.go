@@ -26,6 +26,7 @@ func (p *Plugin) Description() string {
 func (p *Plugin) Help() {
 	fmt.Println("	git: Run git init.")
 	fmt.Println("	git:commit: Run git add -A && git commit -am with a default message.")
+	fmt.Println("	git:amend: Add --amend to the commit.")
 }
 
 // Handle wishes of the busy man.
