@@ -5,7 +5,7 @@
 Package The busy man is a cli tool to initialize a project.
 
 
-s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
+s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)/
 
 # TOC
 - [Install](#install)
@@ -13,6 +13,13 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 - [Usage](#usage)
   - [$ the-busy-man -help](#-the-busy-man--help)
   - [$ the-busy-man -l](#-the-busy-man--l)
+  - [$ the-busy-man -h changelog](#-the-busy-man--h-changelog)
+  - [$ the-busy-man -h emd](#-the-busy-man--h-emd)
+  - [$ the-busy-man -h git](#-the-busy-man--h-git)
+  - [$ the-busy-man -h glide](#-the-busy-man--h-glide)
+  - [$ the-busy-man -h go](#-the-busy-man--h-go)
+  - [$ the-busy-man -h gump](#-the-busy-man--h-gump)
+  - [$ the-busy-man -h license](#-the-busy-man--h-license)
 - [Cli examples](#cli-examples)
 - [Your own plugin](#your-own-plugin)
 - [Recipes](#recipes)
@@ -46,7 +53,6 @@ Options
 	-h|help [plugin]: Show help [of a plugin].
 	-v|-version:      The directory to initialize.
 ```
-
 #### $ the-busy-man -l
 ```sh
 - changelog: Initialize a changelog file
@@ -57,6 +63,52 @@ Options
 - golang: Initialize a golang project
 - gump: Initialize a release script
 - license: Initialize a license file
+```
+#### $ the-busy-man -h changelog
+```sh
+the-busy-man 0.0.0
+
+	changelog: Initialize an changes.log file.
+```
+#### $ the-busy-man -h emd
+```sh
+the-busy-man 0.0.0
+
+	emd:init: Intialize the README with the default template.
+	emd:user/repo: Download a README.e.md file from the repo github.com/user/repo/README.e.md.
+```
+#### $ the-busy-man -h git
+```sh
+the-busy-man 0.0.0
+
+	git: Run git init.
+	git:commit: Run git add -A && git commit -am with a default message.
+	git:amend: Add --amend to the commit.
+```
+#### $ the-busy-man -h glide
+```sh
+the-busy-man 0.0.0
+
+	glide: Run glide init.
+```
+#### $ the-busy-man -h go
+```sh
+the-busy-man 0.0.0
+
+	golang: Initialize a default main.go.
+```
+#### $ the-busy-man -h gump
+```sh
+the-busy-man 0.0.0
+
+	gump: Initialize an empty .version.sh file.
+	gump:user/repo: Initialize a .version.sh file downloaded from github.com/user/repo/.version.sh.
+```
+#### $ the-busy-man -h license
+```sh
+the-busy-man 0.0.0
+
+	license:name: Initialize a LICENSE file matching name.
 ```
 
 ## Cli examples

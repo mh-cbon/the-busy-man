@@ -9,7 +9,7 @@ LicenseColor: yellow
 
 {{pkgdoc}}
 
-s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
+s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)/
 
 # {{toc 5}}
 
@@ -21,8 +21,14 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 ## Usage
 
 #### $ {{exec "the-busy-man" "-help" | color "sh"}}
-
 #### $ {{exec "the-busy-man" "-l" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "changelog" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "emd" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "git" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "glide" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "go" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "gump" | color "sh"}}
+#### $ {{exec "the-busy-man" "-h" "license" | color "sh"}}
 
 ## Cli examples
 
