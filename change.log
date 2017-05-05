@@ -1,5 +1,17 @@
 
-UNRELEASED
+0.0.3
+
+  * cli: the command to show help of a plugin is improved to work with `go`
+  * git: the plugin help is updated to reflect the `amend` shade.
+  * README: various fixes and additions
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Fri, 05 May 2017 21:39:08 +0200
+
+
+
+0.0.2
 
   * README fix alias command to not empty `.bashrc`
   * git: new shade "amend" to perform a `git commit -am ... --amend`
@@ -17,3 +29,5 @@ UNRELEASED
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 01 May 2017 01:58:01 +0200
+
+
