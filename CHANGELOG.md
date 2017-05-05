@@ -1,10 +1,27 @@
 # Changelog - the-busy-man
 
+### 0.0.3
+
+__Changes__
+
+- cli: the command to show help of a plugin is improved to work with `go`
+- git: the plugin help is updated to reflect the `amend` shade.
+- README: various fixes and additions
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Fri 05 May 2017 -
+[see the diff](https://github.com/mh-cbon/the-busy-man/compare/0.0.2...0.0.3#diff)
+______________
+
 ### 0.0.2
 
 __Changes__
 
-- README fix alias command, add amend shade to git
+- README fix alias command to not empty `.bashrc`
+- git: new shade "amend" to perform a `git commit -am ... --amend`
 
 __Contributors__
 
