@@ -1,10 +1,13 @@
 // Package The busy man is a cli tool to initialize a project.
 package main
 
+//go:generate lister -p utils utils/string_slice.go string:StringSlice
+
 import (
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 
 	"github.com/mh-cbon/the-busy-man/changelog"
 	"github.com/mh-cbon/the-busy-man/emd"
@@ -112,8 +115,6 @@ func showVer() {
 	fmt.Printf("%v %v\n", name, version)
 }
 
-//go:generate lister -p utils utils/string_slice.go string:StringSlice
-
 func showPluginHelp(plugins map[string]pluginHandler, p []string) {
 	showVer()
 	fmt.Println()
@@ -144,8 +145,13 @@ func showHelp() {
 }
 
 func showPlugins(plugins map[string]pluginHandler) {
-	for _, p := range plugins {
-		fmt.Printf("- %v: %v\n", p.Name(), p.Description())
+	x := []string{}
+	for name := range plugins {
+		x = append(x, name)
+	}
+	sort.Strings(x)
+	for _, name := range x {
+		fmt.Printf("- %v: %v\n", name, plugins[name].Description())
 	}
 }
 

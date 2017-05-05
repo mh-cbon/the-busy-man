@@ -21,8 +21,6 @@ s/The busy man/[l'homme pressé](https://www.youtube.com/watch?v=Wkxe1kQiuGU/)
 
 # Install
 
-Check the [release page](https://github.com/mh-cbon/the-busy-man/releases)!
-
 #### go
 ```sh
 go get github.com/mh-cbon/the-busy-man
@@ -51,14 +49,14 @@ Options
 
 #### $ the-busy-man -l
 ```sh
-- golang: Initialize a golang project
-- glide: Initialize a glide package
-- gump: Initialize a release script
-- license: Initialize a license file
 - changelog: Initialize a changelog file
 - emd: Initialize a README emd file
 - git: Initialize a git repository
 - golang: Initialize a golang project
+- go: Initialize a golang project
+- glide: Initialize a glide package
+- gump: Initialize a release script
+- license: Initialize a license file
 ```
 
 ## Cli examples

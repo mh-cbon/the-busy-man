@@ -1,5 +1,7 @@
 package wish
 
+//go:generate lister wishs_gen.go *Wish:*InternalWishes
+
 import (
 	"strings"
 
@@ -67,5 +69,3 @@ func NewWishes() *Wishes {
 		InternalWishes: *NewInternalWishes(),
 	}
 }
-
-//go:generate lister wishs_gen.go *Wish:*InternalWishes
