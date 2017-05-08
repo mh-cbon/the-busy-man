@@ -56,6 +56,7 @@ func (p *Plugin) gitInit(w *wish.Wishes, plugin *wish.Wish) error {
 		if p.DirExists(".git") && !plugin.HasShade("force") {
 			fmt.Println("skipping git init, it already exists")
 			fmt.Println("use git:init+force to proceed")
+			return nil
 		}
 		return p.Exec("git", "init")
 	}
