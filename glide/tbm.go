@@ -29,16 +29,29 @@ func (p *Plugin) Help() {
 
 // Handle wishes of the busy man.
 func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	if err := p.goGet(w, plugin); err != nil {
+		return err
+	}
+	if err := p.init(w, plugin); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *Plugin) init(w *wish.Wishes, plugin *wish.Wish) error {
+	return p.Exec("glide", "init", "--non-interactive")
+}
+
+func (p *Plugin) goGet(w *wish.Wishes, plugin *wish.Wish) error {
+	p.Print("? checking glide...")
 	err := p.Exec("glide", "-version")
 	if err != nil {
+		p.Print("? installing glide...")
 		err = p.GoGet("github.com/Masterminds/glide")
 		if err != nil {
 			return err
 		}
 	}
-	err = p.Exec("glide", "init", "--non-interactive")
-	if err != nil {
-		return err
-	}
+	p.Print("✓ glide is up!")
 	return nil
 }

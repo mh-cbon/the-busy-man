@@ -31,18 +31,17 @@ func (p *Plugin) Help() {
 
 // Handle wishes of the busy man.
 func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
-	err := p.Exec("gump", "-version")
-	if err != nil {
-		p.GoGet("github.com/Masterminds/glide")
-		err = p.GoGet("github.com/mh-cbon/gump")
-		if err != nil {
-			return err
-		}
-		err = p.GlideInstall("github.com/mh-cbon/gump")
-		if err != nil {
-			return err
-		}
+	if err := p.goGet(w, plugin); err != nil {
+		return err
 	}
+	if err := p.init(w, plugin); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *Plugin) init(w *wish.Wishes, plugin *wish.Wish) error {
+	p.Print("> init gump...")
 	if plugin.Shades.Empty() == false {
 		x := plugin.Shades.First()
 		p.Log("x=%v", x)
@@ -57,4 +56,23 @@ PREVERSION=
 POSTVERSION=
 `
 	return p.Write(".version.sh", data)
+}
+
+func (p *Plugin) goGet(w *wish.Wishes, plugin *wish.Wish) error {
+	p.Print("? checking gump...")
+	err := p.Exec("gump", "-version")
+	if err != nil {
+		p.Print("? installing gump...")
+		p.GoGet("github.com/Masterminds/glide")
+		err = p.GoGet("github.com/mh-cbon/gump")
+		if err != nil {
+			return err
+		}
+		err = p.GlideInstall("github.com/mh-cbon/gump")
+		if err != nil {
+			return err
+		}
+	}
+	p.Print("✓ gump is up!")
+	return nil
 }

@@ -29,6 +29,9 @@ func (p *Plugin) Help() {
 
 // Handle wishes of the busy man.
 func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	if p.FileExists("main.go") {
+		return nil
+	}
 	data := `//Package...
 package xx
 

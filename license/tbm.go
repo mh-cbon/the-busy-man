@@ -29,16 +29,33 @@ func (p *Plugin) Help() {
 
 // Handle wishes of the busy man.
 func (p *Plugin) Handle(w *wish.Wishes, plugin *wish.Wish) error {
+	if err := p.goGet(w, plugin); err != nil {
+		return err
+	}
+	if err := p.init(w, plugin); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *Plugin) init(w *wish.Wishes, plugin *wish.Wish) error {
+	if plugin.Shades.Len() > 0 {
+		p.Print("> init license...")
+		return p.Exec("license", "-o", "LICENSE", plugin.Shades.At(0))
+	}
+	p.Warn("missing license name in 'license:?' intent")
+	return nil
+}
+
+func (p *Plugin) goGet(w *wish.Wishes, plugin *wish.Wish) error {
+	p.Print("? checking license...")
 	err := p.Exec("license", "-version")
 	if err != nil {
+		p.Print("? installing license...")
 		err = p.GoGet("github.com/nishanths/license")
 		if err != nil {
 			return err
 		}
 	}
-	if plugin.Shades.Len() > 0 {
-		return p.Exec("license", "-o", "LICENSE", plugin.Shades.At(0))
-	}
-	p.Warn("missing license name in 'license:?' intent")
 	return nil
 }
