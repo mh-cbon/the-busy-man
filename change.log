@@ -1,4 +1,14 @@
 
+0.0.4
+
+  * cli: improve output
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 08 May 2017 14:39:44 +0200
+
+
+
 0.0.3
 
   * cli: the command to show help of a plugin is improved to work with `go`
