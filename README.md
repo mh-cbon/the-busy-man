@@ -1,6 +1,6 @@
 # the-busy-man
 
-[![travis Status](https://travis-ci.org//mh-cbon/the-busy-man.svg?branch=master)](https://travis-ci.org//mh-cbon/the-busy-man) [![Appveyor Status](https://ci.appveyor.com/api/projects/status//github/mh-cbon/the-busy-man?branch=master&svg=true)](https://ci.appveyor.com/projects//mh-cbon/the-busy-man) [![Go Report Card](https://goreportcard.com/badge/github.com/mh-cbon/the-busy-man)](https://goreportcard.com/report/github.com/mh-cbon/the-busy-man) [![GoDoc](https://godoc.org/github.com/mh-cbon/the-busy-man?status.svg)](http://godoc.org/github.com/mh-cbon/the-busy-man) [![MIT License](http://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![travis Status](https://travis-ci.org/mh-cbon/the-busy-man.svg?branch=master)](https://travis-ci.org/mh-cbon/the-busy-man) [![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/mh-cbon/the-busy-man?branch=master&svg=true)](https://ci.appveyor.com/projects/mh-cbon/the-busy-man) [![Go Report Card](https://goreportcard.com/badge/github.com/mh-cbon/the-busy-man)](https://goreportcard.com/report/github.com/mh-cbon/the-busy-man) [![GoDoc](https://godoc.org/github.com/mh-cbon/the-busy-man?status.svg)](http://godoc.org/github.com/mh-cbon/the-busy-man) [![MIT License](http://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Package The busy man is a cli tool to initialize a project.
 
