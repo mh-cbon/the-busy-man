@@ -1,5 +1,19 @@
 # Changelog - the-busy-man
 
+### 0.0.4
+
+__Changes__
+
+- cli: improve output
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 08 May 2017 -
+[see the diff](https://github.com/mh-cbon/the-busy-man/compare/0.0.3...0.0.4#diff)
+______________
+
 ### 0.0.3
 
 __Changes__
