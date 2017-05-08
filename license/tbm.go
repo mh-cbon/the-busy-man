@@ -57,5 +57,6 @@ func (p *Plugin) goGet(w *wish.Wishes, plugin *wish.Wish) error {
 			return err
 		}
 	}
+	p.Print("✓ license is up!")
 	return nil
 }
